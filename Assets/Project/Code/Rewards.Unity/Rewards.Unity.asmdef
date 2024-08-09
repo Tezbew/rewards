@@ -1,0 +1,16 @@
+{
+  "name": "Rewards.Unity",
+  "rootNamespace": "Rewards.Unity",
+  "references": [
+    "GUID:47420318617675442ae642b2023d5139"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
