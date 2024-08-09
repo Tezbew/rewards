@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Rewards.Item;
 using Rewards.Resource;
 using Rewards.Storage.Profile.Data;
 using Rewards.Storage.SaveStrategy;
@@ -26,6 +27,10 @@ namespace Rewards.Unity.Game
                     { ResourceType.Tickets, 3 },
                     { ResourceType.HardCurrency, 2 },
                     { ResourceType.SoftCurrency, 1 }
+                },
+                Items = new List<ItemType>
+                {
+                    ItemType.Weapon_AK,
                 }
             };
             _saveStrategy.Save(profile, ProfileSavedEventManager);
