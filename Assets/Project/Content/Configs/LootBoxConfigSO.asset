@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d15104fe2d94fc88232074567422b5a, type: 3}
+  m_Name: LootBoxConfigSO
+  m_EditorClassIdentifier: 
+  _config:
+    Version: 0
+    Rewards:
+      Items:
+      - Item: 7
+        Probability: 47.2
+      - Item: 3
+        Probability: 38.5
+      - Item: 9
+        Probability: 36.1
+      - Item: 4
+        Probability: 14.3
+      - Item: 0
+        Probability: 45.6
+      Resources:
+      - Resource: 1
+        Count: 100
+        Probability: 10
+      - Resource: 0
+        Count: 100
+        Probability: 20
+      - Resource: 2
+        Count: 100
+        Probability: 30

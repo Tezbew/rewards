@@ -1,0 +1,19 @@
+{
+    "name": "Rewards.Unity.Editor",
+    "rootNamespace": "Rewards.Unity.Editor",
+    "references": [
+        "GUID:8db6a80183f906c4299a6a6059d9e221",
+        "GUID:47420318617675442ae642b2023d5139"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
