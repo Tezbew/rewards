@@ -10,6 +10,9 @@ namespace Rewards.Unity.LootBox.Config.SO
         [SerializeField]
         private LootBoxConfig[] _boxes;
 
+        [SerializeField]
+        private LootBoxToView[] _views;
+
         private const string TYPE_NAME = nameof(LootBoxCollectionConfigSO);
     }
 }

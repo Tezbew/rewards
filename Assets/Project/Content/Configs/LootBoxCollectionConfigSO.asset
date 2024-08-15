@@ -19,10 +19,6 @@ MonoBehaviour:
       - Item: 0
         Probability: 100
       Resources: []
-  - Version: 1
-    Rewards:
-      Items: []
-      Resources:
-      - Resource: 0
-        Count: 100
-        Probability: 100
+  _views:
+  - Version: 0
+    View: {fileID: 2797604392212432818, guid: cbfecab933e236b409957bbc6baa10df, type: 3}
