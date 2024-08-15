@@ -1,5 +1,8 @@
+using Rewards.Exceptions;
 using Rewards.LootBox.Config;
+using Rewards.LootBox.Version;
 using Rewards.Unity.CreateMenu;
+using Rewards.Unity.LootBox.View;
 using UnityEngine;
 
 namespace Rewards.Unity.LootBox.Config.SO
@@ -14,5 +17,22 @@ namespace Rewards.Unity.LootBox.Config.SO
         private LootBoxToView[] _views;
 
         private const string TYPE_NAME = nameof(LootBoxCollectionConfigSO);
+
+        public LootBoxConfig[] Boxes => _boxes;
+
+        public LootBoxViewBase FindView(LootBoxVersion version)
+        {
+            foreach (var currentView in _views)
+            {
+                if (currentView.Version != version)
+                {
+                    continue;
+                }
+
+                return currentView.View;
+            }
+
+            throw new ElementNotFountException($"Can't find view for {version}");
+        }
     }
 }

@@ -1,15 +1,16 @@
-using System.Collections.Generic;
-using Rewards.Item;
-using Rewards.Resource;
-using Rewards.Storage.Profile.Data;
+using Rewards.LootBox.Model;
 using Rewards.Storage.SaveStrategy;
 using Rewards.Storage.SaveStrategy.FileOperations;
+using Rewards.Unity.LootBox.Config.SO;
 using UnityEngine;
 
 namespace Rewards.Unity.Game
 {
     public class EntryPoint : MonoBehaviour
     {
+        [SerializeField]
+        private LootBoxCollectionConfigSO _lootBoxCollectionConfigSO;
+
         private string _saveDataPath;
         private IFileOperations _fileOperations;
         private ISaveStrategy _saveStrategy;
@@ -20,25 +21,13 @@ namespace Rewards.Unity.Game
             _fileOperations = new FileOperations();
             _saveStrategy = new JsonFileStrategy(_fileOperations, _saveDataPath);
 
-            var profile = new ProfileData
+            foreach (var currentConfig in _lootBoxCollectionConfigSO.Boxes)
             {
-                Resources = new Dictionary<ResourceType, int>
-                {
-                    { ResourceType.Tickets, 3 },
-                    { ResourceType.HardCurrency, 2 },
-                    { ResourceType.SoftCurrency, 1 }
-                },
-                Items = new List<ItemType>
-                {
-                    ItemType.Weapon_AK,
-                }
-            };
-            _saveStrategy.Save(profile, ProfileSavedEventManager);
-        }
-
-        private void ProfileSavedEventManager()
-        {
-            Debug.Log(message: "Profile saved");
+                var model = new LootBoxModel(currentConfig);
+                var viewTemplate = _lootBoxCollectionConfigSO.FindView(currentConfig.Version);
+                var view = Instantiate(viewTemplate);
+                view.Initialize(model);
+            }
         }
     }
 }
