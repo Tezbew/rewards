@@ -1,10 +1,11 @@
 using Rewards.Coroutine;
-using Rewards.LootBox.Model;
 using Rewards.Storage.SaveStrategy;
 using Rewards.Storage.SaveStrategy.FileOperations;
 using Rewards.Unity.Coroutine.Manager;
 using Rewards.Unity.LootBox.Config.SO;
+using Rewards.Unity.SceneLoader;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Rewards.Unity.Game
 {
@@ -17,6 +18,7 @@ namespace Rewards.Unity.Game
         private IFileOperations _fileOperations;
         private ISaveStrategy _saveStrategy;
         private ICoroutineManager _coroutineManager;
+        private ISceneLoader _sceneLoader;
 
         private void Awake()
         {
@@ -28,13 +30,13 @@ namespace Rewards.Unity.Game
             DontDestroyOnLoad(coroutineManagerGO);
             _coroutineManager = coroutineManagerGO.AddComponent<CoroutineManager>();
 
-            foreach (var currentConfig in _lootBoxCollectionConfigSO.Boxes)
-            {
-                var model = new LootBoxModel(currentConfig);
-                var viewTemplate = _lootBoxCollectionConfigSO.FindView(currentConfig.Version);
-                var view = Instantiate(viewTemplate);
-                view.Initialize(model);
-            }
+            _sceneLoader = new PlayerSceneLoader(_coroutineManager);
+            _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
+        }
+
+        private void LoadFinishedEventHandler(bool result)
+        {
+            Debug.Log($"LoadFinished: {result}");
         }
     }
 }
