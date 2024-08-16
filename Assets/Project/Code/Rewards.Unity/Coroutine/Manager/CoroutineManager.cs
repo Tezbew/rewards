@@ -8,7 +8,7 @@ namespace Rewards.Unity.Coroutine.Manager
 {
     public class CoroutineManager : MonoBehaviour, ICoroutineManager
     {
-        private readonly Dictionary<ulong, UnityCoroutine> _coroutines;
+        private readonly Dictionary<ulong, UnityCoroutine> _coroutines = new();
 
         public ulong GenerateNextID()
         {
