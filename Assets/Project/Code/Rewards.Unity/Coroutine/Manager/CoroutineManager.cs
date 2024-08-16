@@ -24,6 +24,7 @@ namespace Rewards.Unity.Coroutine.Manager
 
         public void StopCoroutine(ulong id)
         {
+            StopCoroutine(_coroutines[id]);
             RemoveCoroutine(id);
         }
 
