@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210ee25996c7449e8af2fd18485eb9c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lootBoxCollectionConfigSO: {fileID: 11400000, guid: 7fc5e33b9345fc745a826f79799a8f19, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
