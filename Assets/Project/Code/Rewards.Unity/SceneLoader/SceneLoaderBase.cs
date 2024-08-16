@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Rewards.Coroutine;
-using Rewards.SceneLoader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Rewards.Unity.SceneLoader
 {
-    public delegate IEnumerator AsyncLoadFunction(string sceneName, ulong coroutineTag);
+    public delegate IEnumerator AsyncLoadFunction(ulong coroutineTag);
 
     public abstract class SceneLoaderBase : ISceneLoader
     {
@@ -22,22 +21,22 @@ namespace Rewards.Unity.SceneLoader
             _activeLoads = new Dictionary<ulong, Action<bool>>();
         }
 
-        public void LoadSceneAsync(string sceneName, Action<bool> finished)
+        public void LoadSceneAsync(string sceneName, LoadSceneMode loadMode, Action<bool> finished)
         {
             LogInfo($"{nameof(LoadSceneAsync)}: {sceneName}");
-            RunLoadAsync(sceneName, finished, GetLoadInactiveSceneCoroutine);
+            RunLoadAsync(tag => GetLoadInactiveSceneCoroutine(sceneName, loadMode, tag), finished);
         }
 
-        public void LoadActiveSceneAsync(string sceneName, Action<bool> finished)
+        public void LoadActiveSceneAsync(string sceneName, LoadSceneMode loadMode, Action<bool> finished)
         {
             LogInfo($"{nameof(LoadActiveSceneAsync)}: {sceneName}");
-            RunLoadAsync(sceneName, finished, LoadSceneAdditiveRoutine);
+            RunLoadAsync(tag => LoadSceneAdditiveRoutine(sceneName, loadMode, tag), finished);
         }
 
         public void UnloadSceneAsync(string sceneName, Action<bool> finished)
         {
             LogInfo($"{nameof(UnloadSceneAsync)}: {sceneName}");
-            RunLoadAsync(sceneName, finished, UnloadSceneRoutine);
+            RunLoadAsync(tag => UnloadSceneRoutine(sceneName, tag), finished);
         }
 
         public void Dispose()
@@ -52,17 +51,17 @@ namespace Rewards.Unity.SceneLoader
 
         protected abstract AsyncOperation LoadSceneAsync(string sceneName, LoadSceneMode mode);
 
-        private void RunLoadAsync(string sceneName, Action<bool> finished, AsyncLoadFunction loadFunction)
+        private void RunLoadAsync(AsyncLoadFunction loadFunction, Action<bool> finished)
         {
             var coroutineTag = _coroutineManager.GenerateNextID();
             _activeLoads.Add(coroutineTag, finished);
-            var coroutine = loadFunction(sceneName, coroutineTag);
+            var coroutine = loadFunction(coroutineTag);
             _coroutineManager.StartCoroutine(coroutineTag, coroutine);
         }
 
-        private IEnumerator GetLoadInactiveSceneCoroutine(string sceneName, ulong coroutineTag)
+        private IEnumerator GetLoadInactiveSceneCoroutine(string sceneName, LoadSceneMode loadMode, ulong coroutineTag)
         {
-            var awaiter = LoadSceneAdditiveAsync(sceneName);
+            var awaiter = LoadSceneAsync(sceneName, loadMode);
 
             while (awaiter.isDone == false)
             {
@@ -72,9 +71,9 @@ namespace Rewards.Unity.SceneLoader
             FinishLoadCoroutine(sceneName, coroutineTag, awaiter.isDone);
         }
 
-        private IEnumerator LoadSceneAdditiveRoutine(string sceneName, ulong coroutineTag)
+        private IEnumerator LoadSceneAdditiveRoutine(string sceneName, LoadSceneMode loadMode, ulong coroutineTag)
         {
-            var awaiter = LoadSceneAdditiveAsync(sceneName);
+            var awaiter = LoadSceneAsync(sceneName, loadMode);
 
             while (awaiter.isDone == false)
             {
@@ -96,11 +95,6 @@ namespace Rewards.Unity.SceneLoader
             }
 
             FinishLoadCoroutine(sceneName, coroutineTag, awaiter.isDone);
-        }
-
-        private AsyncOperation LoadSceneAdditiveAsync(string sceneName)
-        {
-            return LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         }
 
         private void FinishLoadCoroutine(string sceneName, ulong coroutineTag, bool result)
