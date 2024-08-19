@@ -30,7 +30,7 @@ namespace Rewards.Unity.SceneLoader
         public void LoadActiveSceneAsync(string sceneName, LoadSceneMode loadMode, Action<bool> finished)
         {
             LogInfo($"{nameof(LoadActiveSceneAsync)}: {sceneName}");
-            RunLoadAsync(tag => LoadSceneAdditiveRoutine(sceneName, loadMode, tag), finished);
+            RunLoadAsync(tag => LoadSceneRoutine(sceneName, loadMode, tag), finished);
         }
 
         public void UnloadSceneAsync(string sceneName, Action<bool> finished)
@@ -71,7 +71,7 @@ namespace Rewards.Unity.SceneLoader
             FinishLoadCoroutine(sceneName, coroutineTag, awaiter.isDone);
         }
 
-        private IEnumerator LoadSceneAdditiveRoutine(string sceneName, LoadSceneMode loadMode, ulong coroutineTag)
+        private IEnumerator LoadSceneRoutine(string sceneName, LoadSceneMode loadMode, ulong coroutineTag)
         {
             var awaiter = LoadSceneAsync(sceneName, loadMode);
 
