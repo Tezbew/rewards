@@ -4,6 +4,8 @@ using Rewards.Storage.SaveStrategy;
 using Rewards.Storage.SaveStrategy.FileOperations;
 using Rewards.Unity.Coroutine.Manager;
 using Rewards.Unity.LootBox.Config.SO;
+using Rewards.Unity.SceneEntryPoint;
+using Rewards.Unity.SceneEntryPoint.Provider;
 using Rewards.Unity.SceneLoader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,11 +17,13 @@ namespace Rewards.Unity.Game
         [SerializeField]
         private LootBoxCollectionConfigSO _lootBoxCollectionConfigSO;
 
+        private string _currentSceneName;
         private string _saveDataPath;
         private IFileOperations _fileOperations;
         private ISaveStrategy _saveStrategy;
         private ICoroutineManager _coroutineManager;
         private ISceneLoader _sceneLoader;
+        private ISceneEntryPointProvider _entryPointProvider;
         private IContainer _container;
 
         private void Awake()
@@ -41,12 +45,17 @@ namespace Rewards.Unity.Game
             _sceneLoader = new PlayerSceneLoader(_coroutineManager);
             _container.Register(_sceneLoader);
 
+            _entryPointProvider = new SceneEntryPointProvider();
+            _container.Register(_entryPointProvider);
+
             _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
         }
 
         private void LoadFinishedEventHandler(bool result)
         {
             Debug.Log($"LoadFinished: {result}");
+            var entryPoint = _entryPointProvider.Find<LootBoxSceneEntryPoint>();
+            entryPoint.Enter(_container);
         }
     }
 }
