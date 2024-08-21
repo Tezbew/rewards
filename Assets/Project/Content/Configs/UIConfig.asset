@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33d6afc5a6fe4f6f9ccc453cb04be28b, type: 3}
-  m_Name: PanelConfigCollectionSO
+  m_Name: UIConfig
   m_EditorClassIdentifier: 
   _configs: []

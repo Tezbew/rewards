@@ -9,14 +9,14 @@ using UnityEngine;
 namespace Rewards.Unity.UI.Management.Config
 {
     [CreateAssetMenu(menuName = CreateMenuItems.ROOT + "/" + TYPE_NAME, fileName = TYPE_NAME)]
-    public class PanelConfigCollectionSO : ScriptableObject
+    public class UIConfig : ScriptableObject
     {
         [SerializeField]
         private PanelConfig[] _configs;
 
         private IDictionary<Type, PanelConfig> _typeToConfig;
 
-        private const string TYPE_NAME = nameof(PanelConfigCollectionSO);
+        private const string TYPE_NAME = nameof(UIConfig);
 
         public PanelBase FindTemplate<TPanel>() where TPanel : class, IPanel
         {

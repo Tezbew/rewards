@@ -10,9 +10,9 @@ namespace Rewards.Unity.UI.Management.Opener
     public class PanelOpener : IPanelOpener
     {
         private readonly Dictionary<LayerType, ILayer> _layers;
-        private readonly PanelConfigCollectionSO _configs;
+        private readonly UIConfig _configs;
 
-        public PanelOpener(PanelConfigCollectionSO configs)
+        public PanelOpener(UIConfig configs)
         {
             _configs = configs;
         }
