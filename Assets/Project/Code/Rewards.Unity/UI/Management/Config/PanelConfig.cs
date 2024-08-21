@@ -1,4 +1,5 @@
 using System;
+using Rewards.UI.Management.Layer;
 using Rewards.Unity.UI.Panel;
 
 namespace Rewards.Unity.UI.Management.Config
@@ -7,7 +8,7 @@ namespace Rewards.Unity.UI.Management.Config
     public class PanelConfig
     {
         public string Name;
-        public string LayerType;
+        public LayerType LayerType;
         public PanelBase Template;
     }
 }
