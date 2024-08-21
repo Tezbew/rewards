@@ -4,6 +4,6 @@ namespace Rewards.UI.Management.Opener
 {
     public interface IPanelOpener
     {
-        TPanel Open<TPanel>() where TPanel : IPanel;
+        TPanel Open<TPanel>() where TPanel : class, IPanel;
     }
 }
