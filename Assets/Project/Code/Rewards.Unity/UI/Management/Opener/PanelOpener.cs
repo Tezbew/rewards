@@ -27,5 +27,10 @@ namespace Rewards.Unity.UI.Management.Opener
 
             return instance;
         }
+
+        public void Dispose()
+        {
+            _layerManager.Dispose();
+        }
     }
 }
