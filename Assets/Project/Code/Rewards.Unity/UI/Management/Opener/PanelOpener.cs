@@ -13,6 +13,7 @@ namespace Rewards.Unity.UI.Management.Opener
 
         public PanelOpener(ILayerManager layerManager, UIConfig configs)
         {
+            _layerManager = layerManager;
             _configs = configs;
         }
 

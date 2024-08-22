@@ -7,6 +7,9 @@ using Rewards.Unity.LootBox.Config.SO;
 using Rewards.Unity.SceneEntryPoint;
 using Rewards.Unity.SceneEntryPoint.Provider;
 using Rewards.Unity.SceneLoader;
+using Rewards.Unity.UI.Management.Config;
+using Rewards.Unity.UI.Management.Opener;
+using Rewards.Unity.UI.Management.Opener.Layer.Manager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +19,9 @@ namespace Rewards.Unity.Game
     {
         [SerializeField]
         private LootBoxCollectionConfigSO _lootBoxCollectionConfigSO;
+
+        [SerializeField]
+        private UIConfig _uiConfig;
 
         private string _currentSceneName;
         private string _saveDataPath;
@@ -49,6 +55,11 @@ namespace Rewards.Unity.Game
             _container.Register(_entryPointProvider);
 
             _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
+
+            var layerManager = new LayerManager();
+            _container.Register(layerManager);
+            var panelOpener = new PanelOpener(layerManager, _uiConfig);
+            _container.Register(panelOpener);
         }
 
         private void LoadFinishedEventHandler(bool result)
