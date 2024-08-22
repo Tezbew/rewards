@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Rewards.UI.Management.Layer;
+using Rewards.UI.Management.Layer.Manager;
 using Rewards.UI.Management.Opener;
 using Rewards.Unity.UI.Management.Config;
 using IPanel = Rewards.UI.Panel.IPanel;
@@ -9,10 +8,10 @@ namespace Rewards.Unity.UI.Management.Opener
 {
     public class PanelOpener : IPanelOpener
     {
-        private readonly Dictionary<LayerType, ILayer> _layers;
+        private readonly ILayerManager _layerManager;
         private readonly UIConfig _configs;
 
-        public PanelOpener(UIConfig configs)
+        public PanelOpener(ILayerManager layerManager, UIConfig configs)
         {
             _configs = configs;
         }
@@ -22,7 +21,8 @@ namespace Rewards.Unity.UI.Management.Opener
             var template = _configs.FindTemplate<TPanel>();
             var instance = Object.Instantiate(template) as TPanel;
             var layerType = _configs.FindLayer<TPanel>();
-            _layers[layerType].Add(instance);
+            var layer = _layerManager.Get(layerType);
+            layer.Add(instance);
 
             return instance;
         }
