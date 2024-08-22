@@ -9,14 +9,15 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
 {
     public class LayerManager : ILayerManager
     {
-        private readonly Dictionary<LayerType, LayerBase> _layers;
+        private readonly Dictionary<LayerType, ILayer> _layers;
         private GameObject _parent;
 
         public ILayer Get(LayerType layerType)
         {
             if (_layers.ContainsKey(layerType) == false)
             {
-                _layers[layerType] = CreateLayer(layerType);
+                var layerRoot = CreateLayerRoot(layerType);
+                _layers[layerType] = CreateLayer(layerType, layerRoot);
             }
 
             return _layers[layerType];
@@ -34,14 +35,14 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
             Object.Destroy(_parent);
         }
 
-        private LayerBase CreateLayer(LayerType layerType)
+        private GameObject CreateLayerRoot(LayerType layerType)
         {
             if (_parent == null)
             {
-                _parent = new GameObject("UI");
+                _parent = new GameObject(name: "UI");
                 Object.DontDestroyOnLoad(_parent);
             }
-            
+
             var layerGO = new GameObject(layerType.ToString())
             {
                 transform =
@@ -49,10 +50,17 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
                     parent = _parent.transform
                 }
             };
-            LayerBase layer = layerType switch
+
+            return layerGO;
+        }
+
+        private ILayer CreateLayer(LayerType layerType, GameObject root)
+        {
+            var layerTransform = root.transform;
+            ILayer layer = layerType switch
             {
-                LayerType.Screen => layerGO.AddComponent<ScreenLayer>(),
-                LayerType.Stack => layerGO.AddComponent<StackLayer>(),
+                LayerType.Screen => new ScreenLayer(layerTransform),
+                LayerType.Stack => new StackLayer(layerTransform),
                 _ => throw new ArgumentOutOfRangeException(nameof(layerType), layerType, message: null)
             };
 
