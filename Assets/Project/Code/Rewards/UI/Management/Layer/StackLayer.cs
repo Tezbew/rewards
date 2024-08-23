@@ -10,8 +10,11 @@ namespace Rewards.UI.Management.Layer
 
         public void Add(IPanel panel)
         {
-            var currentPanel = _stack.Peek();
-            currentPanel.Hide();
+            if (_stack.Count > 0)
+            {
+                var currentPanel = _stack.Peek();
+                currentPanel.Hide();
+            }
 
             _stack.Push(panel);
             panel.Disposing += PanelDisposingEventHandler;
