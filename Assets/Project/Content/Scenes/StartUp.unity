@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lootBoxCollectionConfigSO: {fileID: 11400000, guid: 7fc5e33b9345fc745a826f79799a8f19, type: 2}
-  _uiConfig: {fileID: 0}
+  _uiConfig: {fileID: 11400000, guid: 699ccbc614dc0df49bd208451684f0af, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
