@@ -2,6 +2,7 @@ using Rewards.Container;
 using Rewards.Coroutine;
 using Rewards.Storage.SaveStrategy;
 using Rewards.Storage.SaveStrategy.FileOperations;
+using Rewards.UI.Management.Opener;
 using Rewards.Unity.Coroutine.Manager;
 using Rewards.Unity.LootBox.Config.SO;
 using Rewards.Unity.SceneEntryPoint;
@@ -56,9 +57,9 @@ namespace Rewards.Unity.Game
 
             _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
 
-            var layerManager = new LayerManager();
+            ILayerManager layerManager = new LayerManager();
             _container.Register(layerManager);
-            var panelOpener = new PanelOpener(layerManager, _uiConfig);
+            IPanelOpener panelOpener = new PanelOpener(layerManager, _uiConfig);
             _container.Register(panelOpener);
         }
 
