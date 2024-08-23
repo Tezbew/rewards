@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Rewards.UI.Management.Layer;
-using Rewards.UI.Management.Layer.Manager;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -10,6 +9,7 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
     public class LayerManager : ILayerManager
     {
         private readonly Dictionary<LayerType, ILayer> _layers;
+        private readonly Dictionary<LayerType, Transform> _roots;
         private GameObject _parent;
 
         public ILayer Get(LayerType layerType)
@@ -17,10 +17,16 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
             if (_layers.ContainsKey(layerType) == false)
             {
                 var layerRoot = CreateLayerRoot(layerType);
-                _layers[layerType] = CreateLayer(layerType, layerRoot);
+                _roots[layerType] = layerRoot.transform;
+                _layers[layerType] = CreateLayer(layerType);
             }
 
             return _layers[layerType];
+        }
+
+        public Transform GetRoot(LayerType layerType)
+        {
+            return _roots[layerType];
         }
 
         public void Dispose()
@@ -32,10 +38,11 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
             }
 
             _layers.Clear();
+            _roots.Clear();
             Object.Destroy(_parent);
         }
 
-        private GameObject CreateLayerRoot(LayerType layerType)
+        private Transform CreateLayerRoot(LayerType layerType)
         {
             if (_parent == null)
             {
@@ -51,16 +58,15 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
                 }
             };
 
-            return layerGO;
+            return layerGO.transform;
         }
 
-        private ILayer CreateLayer(LayerType layerType, GameObject root)
+        private ILayer CreateLayer(LayerType layerType)
         {
-            var layerTransform = root.transform;
             ILayer layer = layerType switch
             {
-                LayerType.Screen => new ScreenLayer(layerTransform),
-                LayerType.Stack => new StackLayer(layerTransform),
+                LayerType.Screen => new ScreenLayer(),
+                LayerType.Stack => new StackLayer(),
                 _ => throw new ArgumentOutOfRangeException(nameof(layerType), layerType, message: null)
             };
 
