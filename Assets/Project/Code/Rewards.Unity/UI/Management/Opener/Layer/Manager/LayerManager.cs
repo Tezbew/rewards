@@ -67,6 +67,7 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
                     parent = _root.transform
                 }
             };
+            layerGO.AddComponent<RectTransform>();
 
             return layerGO.transform;
         }
