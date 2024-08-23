@@ -17,6 +17,8 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
         public LayerManager(RootBase rootTemplate)
         {
             _rootTemplate = rootTemplate;
+            _layers = new Dictionary<LayerType, ILayer>();
+            _roots = new Dictionary<LayerType, Transform>();
         }
         
         public ILayer Get(LayerType layerType)
