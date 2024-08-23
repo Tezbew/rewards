@@ -59,7 +59,7 @@ namespace Rewards.Unity.UI.Management.Config
                     throw new InvalidOperationException($"{panelType.Name} is invalid!");
                 }
                 
-                dictionary.Add(panelType, currentConfig);
+                dictionary.Add(baseType, currentConfig);
             }
 
             return dictionary;
