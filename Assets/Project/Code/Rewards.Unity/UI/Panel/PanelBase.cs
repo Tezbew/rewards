@@ -34,7 +34,7 @@ namespace Rewards.Unity.UI.Panel
 
         public void SetParent(Transform parent)
         {
-            transform.SetParent(parent);
+            transform.SetParent(parent, false);
         }
 
         protected abstract void OnShow();

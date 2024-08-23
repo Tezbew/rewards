@@ -20,7 +20,7 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
             _layers = new Dictionary<LayerType, ILayer>();
             _roots = new Dictionary<LayerType, Transform>();
         }
-        
+
         public ILayer Get(LayerType layerType)
         {
             if (_layers.ContainsKey(layerType) == false)
@@ -59,17 +59,18 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
                 _root.name = "UI";
                 Object.DontDestroyOnLoad(_root.gameObject);
             }
+            
+            var rootTransform = _root.GetComponent<RectTransform>();
 
-            var layerGO = new GameObject(layerType.ToString())
-            {
-                transform =
-                {
-                    parent = _root.transform
-                }
-            };
-            layerGO.AddComponent<RectTransform>();
+            var layerGO = new GameObject(layerType.ToString());
+            var rectTransform = layerGO.AddComponent<RectTransform>();
+            rectTransform.anchorMax = Vector2.one;
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.offsetMax = Vector2.zero;
+            rectTransform.offsetMin = Vector2.zero;
+            rectTransform.SetParent(rootTransform, false);
 
-            return layerGO.transform;
+            return rectTransform;
         }
 
         private ILayer CreateLayer(LayerType layerType)
