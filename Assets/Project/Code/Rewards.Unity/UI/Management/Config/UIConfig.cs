@@ -48,7 +48,7 @@ namespace Rewards.Unity.UI.Management.Config
             {
                 var panelType = currentConfig.GetType();
                 var baseType = panelType.BaseType;
-                if (baseType == null || baseType.IsAbstract == false)
+                if (baseType == null || baseType.IsAbstract == false || baseType == typeof(PanelBase))
                 {
                     throw new InvalidOperationException($"{panelType.Name} is invalid!");
                 }
