@@ -1,4 +1,6 @@
 using Rewards.Container;
+using Rewards.UI.Management.Opener;
+using Rewards.Unity.UI.Panel.Menu;
 using UnityEngine;
 
 namespace Rewards.Unity.SceneEntryPoint
@@ -11,6 +13,8 @@ namespace Rewards.Unity.SceneEntryPoint
         {
             LogInfo("Entered");
             _container = container;
+            var opener = _container.Resolve<IPanelOpener>();
+            opener.Open<MenuBase>();
         }
         
         private void LogInfo(string message)
