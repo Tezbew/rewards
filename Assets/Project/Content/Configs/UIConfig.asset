@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d6afc5a6fe4f6f9ccc453cb04be28b, type: 3}
   m_Name: UIConfig
   m_EditorClassIdentifier: 
-  _configs: []
+  _configs:
+  - Name: Menu Screen
+    LayerType: 0
+    Template: {fileID: 3704375582362437114, guid: 85733679d1277b349b865fc68b9da22f, type: 3}
+  - Name: Menu Stack
+    LayerType: 1
+    Template: {fileID: 3704375582362437114, guid: 85733679d1277b349b865fc68b9da22f, type: 3}
+  _root: {fileID: 3718274488838035734, guid: 71cc2d868b896e54f89c71bbae632f6c, type: 3}
