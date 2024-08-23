@@ -57,7 +57,7 @@ namespace Rewards.Unity.Game
 
             _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
 
-            ILayerManager layerManager = new LayerManager();
+            ILayerManager layerManager = new LayerManager(_uiConfig.Root);
             _container.Register(layerManager);
             IPanelOpener panelOpener = new PanelOpener(layerManager, _uiConfig);
             _container.Register(panelOpener);

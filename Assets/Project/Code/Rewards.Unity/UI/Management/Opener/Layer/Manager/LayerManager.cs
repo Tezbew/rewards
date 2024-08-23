@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Rewards.UI.Management.Layer;
+using Rewards.Unity.UI.Root;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -10,8 +11,14 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
     {
         private readonly Dictionary<LayerType, ILayer> _layers;
         private readonly Dictionary<LayerType, Transform> _roots;
-        private GameObject _parent;
+        private readonly RootBase _rootTemplate;
+        private RootBase _root;
 
+        public LayerManager(RootBase rootTemplate)
+        {
+            _rootTemplate = rootTemplate;
+        }
+        
         public ILayer Get(LayerType layerType)
         {
             if (_layers.ContainsKey(layerType) == false)
@@ -39,22 +46,23 @@ namespace Rewards.Unity.UI.Management.Opener.Layer.Manager
 
             _layers.Clear();
             _roots.Clear();
-            Object.Destroy(_parent);
+            Object.Destroy(_root);
         }
 
         private Transform CreateLayerRoot(LayerType layerType)
         {
-            if (_parent == null)
+            if (_root == null)
             {
-                _parent = new GameObject(name: "UI");
-                Object.DontDestroyOnLoad(_parent);
+                _root = Object.Instantiate(_rootTemplate);
+                _root.name = "UI";
+                Object.DontDestroyOnLoad(_root.gameObject);
             }
 
             var layerGO = new GameObject(layerType.ToString())
             {
                 transform =
                 {
-                    parent = _parent.transform
+                    parent = _root.transform
                 }
             };
 

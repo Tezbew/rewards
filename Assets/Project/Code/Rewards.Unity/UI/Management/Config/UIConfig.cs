@@ -4,6 +4,7 @@ using Rewards.UI.Management.Layer;
 using Rewards.UI.Panel;
 using Rewards.Unity.CreateMenu;
 using Rewards.Unity.UI.Panel;
+using Rewards.Unity.UI.Root;
 using UnityEngine;
 
 namespace Rewards.Unity.UI.Management.Config
@@ -13,6 +14,9 @@ namespace Rewards.Unity.UI.Management.Config
     {
         [SerializeField]
         private PanelConfig[] _configs;
+
+        [SerializeField]
+        private RootBase _root;
 
         private IDictionary<Type, PanelConfig> _typeToConfig;
 
@@ -31,6 +35,8 @@ namespace Rewards.Unity.UI.Management.Config
 
             return config.LayerType;
         }
+
+        public RootBase Root => _root;
 
         private PanelConfig FindConfig<TPanel>() where TPanel : class, IPanel
         {
