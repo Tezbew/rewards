@@ -52,7 +52,7 @@ namespace Rewards.Unity.UI.Management.Config
             
             foreach (var currentConfig in _configs)
             {
-                var panelType = currentConfig.GetType();
+                var panelType = currentConfig.Template.GetType();
                 var baseType = panelType.BaseType;
                 if (baseType == null || baseType.IsAbstract == false || baseType == typeof(PanelBase))
                 {
