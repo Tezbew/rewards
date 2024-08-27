@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Rewards.LootBox.Version;
 using Rewards.Unity.UI.Panel.Menu.Information.LootBoxList;
@@ -18,9 +19,12 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
         [SerializeField]
         private ResourcesListBase _resourcesList;
 
+        public override event Action<LootBoxVersion> Selected;
+
         public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes)
         {
             _lootBoxList.Initialize(lootBoxes);
+            _lootBoxList.Selected += BoxSelectedEventHandler;
             _resourcesList.Initialize();
             _pages.Initialize();
             _pages.ToggleActivated += ToggleActivatedEventHandler;
@@ -30,6 +34,13 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
         {
             _pages.ToggleActivated -= ToggleActivatedEventHandler;
             _pages.Dispose();
+            _lootBoxList.Selected -= BoxSelectedEventHandler;
+            _lootBoxList.Dispose();
+        }
+
+        private void BoxSelectedEventHandler(LootBoxVersion box)
+        {
+            Selected?.Invoke(box);
         }
 
         private void ToggleActivatedEventHandler(int index)

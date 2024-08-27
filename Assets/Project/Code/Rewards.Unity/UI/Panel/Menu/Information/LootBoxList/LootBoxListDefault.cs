@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Rewards.LootBox.Version;
 using Rewards.Unity.UI.Panel.Menu.Information.LootBoxList.Entry;
@@ -12,12 +13,15 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.LootBoxList
 
         private readonly List<LootBoxEntryBase> _entries = new();
 
+        public override event Action<LootBoxVersion> Selected;
+
         public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes)
         {
             foreach (var box in lootBoxes)
             {
                 var boxEntry = Instantiate(_template, transform);
                 boxEntry.Initialize(box);
+                boxEntry.Selected += BoxSelectedEventHandler;
                 _entries.Add(boxEntry);
             }
         }
@@ -36,8 +40,14 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.LootBoxList
         {
             foreach (var entry in _entries)
             {
+                entry.Selected -= BoxSelectedEventHandler;
                 entry.Dispose();
             }
+        }
+
+        private void BoxSelectedEventHandler(LootBoxVersion box)
+        {
+            Selected?.Invoke(box);
         }
 
         private void SetActive(bool isActive)

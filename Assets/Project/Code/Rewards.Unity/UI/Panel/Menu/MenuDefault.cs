@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Rewards.LootBox.Version;
 using Rewards.Unity.UI.Panel.Menu.Information;
@@ -14,10 +15,13 @@ namespace Rewards.Unity.UI.Panel.Menu
         [SerializeField]
         private InformationBase _information;
 
+        public override event Action<LootBoxVersion> Selected;
+
         public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes)
         {
             LogInfo();
             _information.Initialize(lootBoxes);
+            _information.Selected += BoxSelectedEventHandler;
 
             _clearSavesButton.onClick.AddListener(ClearSaves);
         }
@@ -32,8 +36,14 @@ namespace Rewards.Unity.UI.Panel.Menu
 
         protected override void OnDispose()
         {
+            _information.Selected -= BoxSelectedEventHandler;
             _information.Dispose();
             _clearSavesButton.onClick.RemoveListener(ClearSaves);
+        }
+
+        private void BoxSelectedEventHandler(LootBoxVersion box)
+        {
+            Selected?.Invoke(box);
         }
 
         private void ClearSaves()

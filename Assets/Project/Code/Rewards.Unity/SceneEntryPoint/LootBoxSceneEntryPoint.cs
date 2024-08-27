@@ -1,5 +1,6 @@
 using System.Linq;
 using Rewards.Container;
+using Rewards.LootBox.Version;
 using Rewards.UI.Management.Opener;
 using Rewards.Unity.LootBox.Config.SO;
 using Rewards.Unity.UI.Panel.Menu;
@@ -23,6 +24,12 @@ namespace Rewards.Unity.SceneEntryPoint
                                          .Select(b => b.Version)
                                          .ToArray();
             menu.Initialize(lootBoxes);
+            menu.Selected += BoxSelectedEventHandler;
+        }
+
+        private void BoxSelectedEventHandler(LootBoxVersion box)
+        {
+            LogInfo($"Box selected {box.ToString()}");
         }
 
         private void LogInfo(string message)
