@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using Rewards.UI.Panel;
 using UnityEngine;
 
@@ -16,18 +17,21 @@ namespace Rewards.Unity.UI.Panel
 
         public void Show()
         {
+            LogInfo();
             OnShow();
             IsActive = true;
         }
 
         public void Hide()
         {
+            LogInfo();
             OnHide();
             IsActive = false;
         }
 
         public void Dispose()
         {
+            LogInfo();
             Disposing?.Invoke(this);
             OnDispose();
         }
@@ -42,5 +46,10 @@ namespace Rewards.Unity.UI.Panel
         protected abstract void OnHide();
 
         protected abstract void OnDispose();
+        
+        protected void LogInfo([CallerMemberName] string message = null)
+        {
+            Debug.Log($"[{GetType().Name}] {message}");
+        }
     }
 }

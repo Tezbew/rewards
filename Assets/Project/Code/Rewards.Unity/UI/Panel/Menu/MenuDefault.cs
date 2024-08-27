@@ -24,12 +24,20 @@ namespace Rewards.Unity.UI.Panel.Menu
 
         protected override void OnDispose()
         {
-            
+            _clearSavesButton.onClick.RemoveListener(ClearSaves);
         }
 
         public override void Initialize()
         {
+            LogInfo();
             _information.Initialize();
+            
+            _clearSavesButton.onClick.AddListener(ClearSaves);
+        }
+
+        private void ClearSaves()
+        {
+            LogInfo();
         }
     }
 }
