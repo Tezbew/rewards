@@ -61,6 +61,8 @@ namespace Rewards.Unity.Game
             _container.Register(layerManager);
             IPanelOpener panelOpener = new PanelOpener(layerManager, _uiConfig);
             _container.Register(panelOpener);
+
+            _container.Register(_lootBoxCollectionConfigSO);
         }
 
         private void LoadFinishedEventHandler(bool result)

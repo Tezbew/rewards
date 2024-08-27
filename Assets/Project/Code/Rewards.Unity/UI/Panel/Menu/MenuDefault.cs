@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Rewards.LootBox.Version;
 using Rewards.Unity.UI.Panel.Menu.Information;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +14,10 @@ namespace Rewards.Unity.UI.Panel.Menu
         [SerializeField]
         private InformationBase _information;
 
-        public override void Initialize()
+        public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes)
         {
             LogInfo();
-            _information.Initialize();
+            _information.Initialize(lootBoxes);
 
             _clearSavesButton.onClick.AddListener(ClearSaves);
         }
