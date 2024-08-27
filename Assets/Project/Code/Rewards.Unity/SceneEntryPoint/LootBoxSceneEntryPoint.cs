@@ -14,7 +14,8 @@ namespace Rewards.Unity.SceneEntryPoint
             LogInfo("Entered");
             _container = container;
             var opener = _container.Resolve<IPanelOpener>();
-            opener.Open<MenuBase>();
+            var menu = opener.Open<MenuBase>();
+            menu.Initialize();
         }
         
         private void LogInfo(string message)
