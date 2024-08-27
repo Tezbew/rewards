@@ -11,28 +11,27 @@ namespace Rewards.Unity.UI.Panel.Menu
 
         [SerializeField]
         private InformationBase _information;
-        
-        protected override void OnShow()
-        {
-            
-        }
-
-        protected override void OnHide()
-        {
-            
-        }
-
-        protected override void OnDispose()
-        {
-            _clearSavesButton.onClick.RemoveListener(ClearSaves);
-        }
 
         public override void Initialize()
         {
             LogInfo();
             _information.Initialize();
-            
+
             _clearSavesButton.onClick.AddListener(ClearSaves);
+        }
+
+        protected override void OnShow()
+        {
+        }
+
+        protected override void OnHide()
+        {
+        }
+
+        protected override void OnDispose()
+        {
+            _information.Dispose();
+            _clearSavesButton.onClick.RemoveListener(ClearSaves);
         }
 
         private void ClearSaves()

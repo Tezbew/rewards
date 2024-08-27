@@ -10,10 +10,17 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.ResourcesList
         private ResourceEntryBase _template;
 
         private List<ResourceEntryBase> _entries;
-        
+
         public override void Initialize()
         {
-            
+        }
+
+        public override void Show()
+        {
+        }
+
+        public override void Hide()
+        {
         }
     }
 }

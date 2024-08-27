@@ -20,6 +20,28 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
         {
             _lootBoxList.Initialize();
             _resourcesList.Initialize();
+            _pages.Initialize();
+            _pages.ToggleActivated += ToggleActivatedEventHandler;
+        }
+
+        public override void Dispose()
+        {
+            _pages.ToggleActivated -= ToggleActivatedEventHandler;
+            _pages.Dispose();
+        }
+
+        private void ToggleActivatedEventHandler(int index)
+        {
+            if (index == 0)
+            {
+                _lootBoxList.Show();
+                _resourcesList.Hide();
+            }
+            else
+            {
+                _lootBoxList.Hide();
+                _resourcesList.Show();
+            }
         }
     }
 }

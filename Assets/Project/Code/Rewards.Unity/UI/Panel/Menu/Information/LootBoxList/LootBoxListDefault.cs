@@ -10,10 +10,17 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.LootBoxList
         private LootBoxEntryBase _template;
 
         private readonly List<LootBoxEntryBase> _entries = new();
-        
+
         public override void Initialize()
         {
-            
+        }
+
+        public override void Show()
+        {
+        }
+
+        public override void Hide()
+        {
         }
     }
 }
