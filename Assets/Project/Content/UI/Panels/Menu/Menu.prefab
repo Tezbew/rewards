@@ -668,6 +668,7 @@ GameObject:
   - component: {fileID: 3113263039573600078}
   - component: {fileID: 6178774916755596285}
   - component: {fileID: 5513708200893620059}
+  - component: {fileID: 1609274493110329263}
   m_Layer: 0
   m_Name: toggle-list
   m_TagString: Untagged
@@ -735,6 +736,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 0
+--- !u!114 &1609274493110329263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3086532631557234559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e463f8f427b436dabc349c9f178e6f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3623692404064679510
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,7 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7e3bdd8b59436aae427d8ca5a407e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _toggleGroup: {fileID: 5513708200893620059}
+  _pages: {fileID: 1609274493110329263}
   _lootBoxList: {fileID: 7395745714040560411}
   _resourcesList: {fileID: 6882396726736846575}
 --- !u!1 &4109303058530822574
@@ -1496,10 +1509,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8953162856578528367}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 2570}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 960, y: 0}
+  m_SizeDelta: {x: 1920, y: 2570}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6813100369233068927
 MonoBehaviour:
@@ -1539,6 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28426fbd6d9541c8b4f7e549f2620fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _template: {fileID: 0}
 --- !u!1 &7647601117925437757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1571,10 +1585,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8953162856578528367}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 2450}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 960, y: -2570}
+  m_SizeDelta: {x: 1920, y: 2450}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &8990291077629297065
 MonoBehaviour:
@@ -1612,6 +1626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cc4a9afd98c574990460ad69c6651c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _template: {fileID: 0}
 --- !u!1 &7767662220692086741
 GameObject:
   m_ObjectHideFlags: 0

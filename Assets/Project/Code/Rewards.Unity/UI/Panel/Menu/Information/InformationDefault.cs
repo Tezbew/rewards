@@ -1,14 +1,14 @@
 using Rewards.Unity.UI.Panel.Menu.Information.LootBoxList;
+using Rewards.Unity.UI.Panel.Menu.Information.Pages;
 using Rewards.Unity.UI.Panel.Menu.Information.ResourcesList;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Rewards.Unity.UI.Panel.Menu.Information
 {
     public class InformationDefault : InformationBase
     {
         [SerializeField]
-        private ToggleGroup _toggleGroup;
+        private PagesBase _pages;
 
         [SerializeField]
         private LootBoxListBase _lootBoxList;
