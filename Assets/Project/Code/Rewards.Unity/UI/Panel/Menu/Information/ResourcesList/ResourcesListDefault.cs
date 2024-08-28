@@ -17,10 +17,17 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.ResourcesList
 
         public override void Show()
         {
+            SetActive(true);
         }
 
         public override void Hide()
         {
+            SetActive(false);
+        }
+
+        private void SetActive(bool isActive)
+        {
+            gameObject.SetActive(isActive);
         }
     }
 }
