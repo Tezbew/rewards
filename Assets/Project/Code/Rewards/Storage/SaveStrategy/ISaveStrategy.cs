@@ -6,5 +6,6 @@ namespace Rewards.Storage.SaveStrategy
     {
         void Save<T>(T dataClass, Action finished);
         void Load<T>(Action<T> finished);
+        bool TryLoad<T>(Action<T> finished);
     }
 }

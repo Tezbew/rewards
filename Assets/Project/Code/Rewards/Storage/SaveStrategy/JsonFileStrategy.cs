@@ -29,6 +29,18 @@ namespace Rewards.Storage.SaveStrategy
             _fileOperations.Read(path, json => JSONLoadFinished(json, finished));
         }
 
+        public bool TryLoad<T>(Action<T> finished)
+        {
+            var path = GetFullPath<T>();
+            var fileExists = _fileOperations.FileExists(path);
+            if (fileExists)
+            {
+                _fileOperations.Read(path, json => JSONLoadFinished(json, finished));
+            }
+
+            return fileExists;
+        }
+
         private static void JSONLoadFinished<T>(string json, Action<T> serializationFinished)
         {
             var dataClass = JsonConvert.DeserializeObject<T>(json);
