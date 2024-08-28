@@ -8,7 +8,7 @@ namespace Rewards.Storage.Profile.Data
     [JsonObject]
     public class ProfileData
     {
-        public Dictionary<ResourceType, int> Resources;
-        public List<ItemType> Items;
+        public Dictionary<ResourceType, int> Resources = new();
+        public List<ItemType> Items = new();
     }
 }

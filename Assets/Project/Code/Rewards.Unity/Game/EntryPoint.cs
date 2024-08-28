@@ -1,5 +1,6 @@
 using Rewards.Container;
 using Rewards.Coroutine;
+using Rewards.Storage.Profile.Controller;
 using Rewards.Storage.SaveStrategy;
 using Rewards.Storage.SaveStrategy.FileOperations;
 using Rewards.UI.Management.Opener;
@@ -42,7 +43,9 @@ namespace Rewards.Unity.Game
             _container.Register(_fileOperations);
 
             _saveStrategy = new JsonFileStrategy(_fileOperations, _saveDataPath);
-            _container.Register(_saveStrategy);
+            var profileController = new ProfileController(_saveStrategy);
+            profileController.Initialize();
+            _container.Register(profileController);
 
             var coroutineManagerGO = new GameObject(nameof(ICoroutineManager));
             DontDestroyOnLoad(coroutineManagerGO);
@@ -62,7 +65,7 @@ namespace Rewards.Unity.Game
             _container.Register(panelOpener);
 
             _container.Register(_lootBoxCollectionConfigSO);
-            
+
             _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
         }
 
