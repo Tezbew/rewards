@@ -55,7 +55,6 @@ namespace Rewards.Unity.Game
             _entryPointProvider = new SceneEntryPointProvider();
             _container.Register(_entryPointProvider);
 
-            _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
 
             ILayerManager layerManager = new LayerManager(_uiConfig.Root);
             _container.Register(layerManager);
@@ -63,6 +62,8 @@ namespace Rewards.Unity.Game
             _container.Register(panelOpener);
 
             _container.Register(_lootBoxCollectionConfigSO);
+            
+            _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
         }
 
         private void LoadFinishedEventHandler(bool result)
