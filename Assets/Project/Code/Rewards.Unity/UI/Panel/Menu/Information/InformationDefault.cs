@@ -19,6 +19,8 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
         [SerializeField]
         private ResourcesListBase _resourcesList;
 
+        private readonly List<IListInformationList> _lists = new();
+
         public override event Action<LootBoxVersion> Selected;
 
         public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes)
@@ -26,6 +28,10 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
             _lootBoxList.Initialize(lootBoxes);
             _lootBoxList.Selected += BoxSelectedEventHandler;
             _resourcesList.Initialize();
+
+            _lists.Add(_lootBoxList);
+            _lists.Add(_resourcesList);
+
             _pages.Initialize();
             _pages.ToggleActivated += ToggleActivatedEventHandler;
         }
@@ -45,15 +51,17 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
 
         private void ToggleActivatedEventHandler(int index)
         {
-            if (index == 0)
+            for (var i = 0; i < _lists.Count; i++)
             {
-                _lootBoxList.Show();
-                _resourcesList.Hide();
-            }
-            else
-            {
-                _lootBoxList.Hide();
-                _resourcesList.Show();
+                var page = _lists[i];
+                if (i == index)
+                {
+                    page.Show();
+                }
+                else
+                {
+                    page.Hide();
+                }
             }
         }
     }

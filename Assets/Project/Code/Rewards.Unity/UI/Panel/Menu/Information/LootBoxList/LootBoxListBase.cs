@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Rewards.Unity.UI.Panel.Menu.Information.LootBoxList
 {
-    public abstract class LootBoxListBase : MonoBehaviour, IDisposable
+    public abstract class LootBoxListBase : MonoBehaviour, IListInformationList, IDisposable
     {
         public virtual event Action<LootBoxVersion> Selected;
         public abstract void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes);
