@@ -5,6 +5,11 @@ namespace Rewards.Storage.SaveStrategy.FileOperations
 {
     public class FileOperations : IFileOperations
     {
+        public bool FileExists(string path)
+        {
+            return File.Exists(path);
+        }
+
         public void Read(string path, Action<string> finished)
         {
             ReadAsync(path, finished);
