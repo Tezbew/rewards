@@ -29,6 +29,16 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.ResourcesList
             SetActive(isActive: false);
         }
 
+        public override void Dispose()
+        {
+            for (var i = _entries.Count - 1; i >= 0; i--)
+            {
+                var entry = _entries[i];
+                Destroy(entry.gameObject);
+                _entries.RemoveAt(i);
+            }
+        }
+
         private void CreateEntries(IProfileController profile)
         {
             var allResources = (ResourceType[])Enum.GetValues(typeof(ResourceType));

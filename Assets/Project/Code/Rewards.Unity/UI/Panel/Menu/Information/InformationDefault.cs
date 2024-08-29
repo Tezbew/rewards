@@ -43,6 +43,7 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
             _pages.Dispose();
             _lootBoxList.Selected -= BoxSelectedEventHandler;
             _lootBoxList.Dispose();
+            _resourcesList.Dispose();
         }
 
         private void BoxSelectedEventHandler(LootBoxVersion box)
