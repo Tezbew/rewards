@@ -32,6 +32,7 @@ namespace Rewards.Unity.Game
         private ICoroutineManager _coroutineManager;
         private ISceneLoader _sceneLoader;
         private ISceneEntryPointProvider _entryPointProvider;
+        private IProfileController _profileController;
         private IContainer _container;
 
         private void Awake()
@@ -43,9 +44,8 @@ namespace Rewards.Unity.Game
             _container.Register(_fileOperations);
 
             _saveStrategy = new JsonFileStrategy(_fileOperations, _saveDataPath);
-            IProfileController profileController = new ProfileController(_saveStrategy);
-            profileController.Initialize();
-            _container.Register(profileController);
+            _profileController = new ProfileController(_saveStrategy);
+            _container.Register(_profileController);
 
             var coroutineManagerGO = new GameObject(nameof(ICoroutineManager));
             DontDestroyOnLoad(coroutineManagerGO);
@@ -58,14 +58,19 @@ namespace Rewards.Unity.Game
             _entryPointProvider = new SceneEntryPointProvider();
             _container.Register(_entryPointProvider);
 
-
             ILayerManager layerManager = new LayerManager(_uiConfig.Root);
             _container.Register(layerManager);
             IPanelOpener panelOpener = new PanelOpener(layerManager, _uiConfig);
             _container.Register(panelOpener);
 
             _container.Register(_lootBoxCollectionConfigSO);
+            
+            _profileController.Initialize(ProfileInitialized);
+        }
 
+        private void ProfileInitialized()
+        {
+            Debug.Log("Profile Initialized");
             _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
         }
 

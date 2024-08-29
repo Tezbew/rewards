@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Rewards.Item;
 using Rewards.Resource;
@@ -6,7 +7,7 @@ namespace Rewards.Storage.Profile.Controller
 {
     public interface IProfileController
     {
-        void Initialize();
+        void Initialize(Action callback);
         IReadOnlyList<ResourceType> GetResources();
         int GetQuantity(ResourceType resource);
         void ModifyResource(ResourceType resource, int quantity);

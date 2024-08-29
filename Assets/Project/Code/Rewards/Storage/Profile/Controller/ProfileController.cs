@@ -11,6 +11,8 @@ namespace Rewards.Storage.Profile.Controller
     public class ProfileController : IProfileController
     {
         private readonly ISaveStrategy _saveStrategy;
+        private Action _initializationCallback;
+        private bool _isInitialized;
         private ProfileData _data;
 
         public ProfileController(ISaveStrategy saveStrategy)
@@ -18,8 +20,15 @@ namespace Rewards.Storage.Profile.Controller
             _saveStrategy = saveStrategy;
         }
 
-        public void Initialize()
+        public void Initialize(Action callback)
         {
+            if (_initializationCallback != null ||
+                _isInitialized)
+            {
+                throw new InvalidOperationException(message: "Initialization is already started");
+            }
+
+            _initializationCallback = callback;
             if (_saveStrategy.TryLoad<ProfileData>(DataLoaded))
             {
                 return;
@@ -81,6 +90,9 @@ namespace Rewards.Storage.Profile.Controller
         private void DataLoaded(ProfileData data)
         {
             _data = data;
+            _initializationCallback.Invoke();
+            _initializationCallback = null;
+            _isInitialized = true;
         }
 
         private void SaveFinished()
