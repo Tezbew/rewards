@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Rewards.LootBox.Version;
+using Rewards.Storage.Profile.Controller;
 using Rewards.Unity.UI.Panel.Menu.Information;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,10 +18,10 @@ namespace Rewards.Unity.UI.Panel.Menu
 
         public override event Action<LootBoxVersion> Selected;
 
-        public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes)
+        public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes, IProfileController profile)
         {
             LogInfo();
-            _information.Initialize(lootBoxes);
+            _information.Initialize(lootBoxes, profile);
             _information.Selected += BoxSelectedEventHandler;
 
             _clearSavesButton.onClick.AddListener(ClearSaves);

@@ -43,7 +43,7 @@ namespace Rewards.Unity.Game
             _container.Register(_fileOperations);
 
             _saveStrategy = new JsonFileStrategy(_fileOperations, _saveDataPath);
-            var profileController = new ProfileController(_saveStrategy);
+            IProfileController profileController = new ProfileController(_saveStrategy);
             profileController.Initialize();
             _container.Register(profileController);
 

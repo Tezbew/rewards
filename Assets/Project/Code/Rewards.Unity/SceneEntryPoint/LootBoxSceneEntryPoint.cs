@@ -1,6 +1,7 @@
 using System.Linq;
 using Rewards.Container;
 using Rewards.LootBox.Version;
+using Rewards.Storage.Profile.Controller;
 using Rewards.UI.Management.Opener;
 using Rewards.Unity.LootBox.Config.SO;
 using Rewards.Unity.UI.Panel.Menu;
@@ -23,7 +24,8 @@ namespace Rewards.Unity.SceneEntryPoint
             var lootBoxes = lootBoxConfig.Boxes
                                          .Select(b => b.Version)
                                          .ToArray();
-            menu.Initialize(lootBoxes);
+            var profile = _container.Resolve<IProfileController>();
+            menu.Initialize(lootBoxes, profile);
             menu.Selected += BoxSelectedEventHandler;
         }
 

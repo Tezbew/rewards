@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Rewards.LootBox.Version;
+using Rewards.Storage.Profile.Controller;
 using Rewards.Unity.UI.Panel.Menu.Information.LootBoxList;
 using Rewards.Unity.UI.Panel.Menu.Information.Pages;
 using Rewards.Unity.UI.Panel.Menu.Information.ResourcesList;
@@ -23,11 +24,11 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
 
         public override event Action<LootBoxVersion> Selected;
 
-        public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes)
+        public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes, IProfileController profile)
         {
             _lootBoxList.Initialize(lootBoxes);
             _lootBoxList.Selected += BoxSelectedEventHandler;
-            _resourcesList.Initialize();
+            _resourcesList.Initialize(profile);
 
             _lists.Add(_lootBoxList);
             _lists.Add(_resourcesList);

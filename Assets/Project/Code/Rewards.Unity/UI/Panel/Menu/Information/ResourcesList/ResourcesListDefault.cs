@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using Rewards.Resource;
+using Rewards.Storage.Profile.Controller;
 using Rewards.Unity.UI.Panel.Menu.Information.ResourcesList.Entry;
 using UnityEngine;
 
@@ -9,20 +12,33 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.ResourcesList
         [SerializeField]
         private ResourceEntryBase _template;
 
-        private List<ResourceEntryBase> _entries;
+        private readonly List<ResourceEntryBase> _entries = new();
 
-        public override void Initialize()
+        public override void Initialize(IProfileController profile)
         {
+            CreateEntries(profile);
         }
 
         public override void Show()
         {
-            SetActive(true);
+            SetActive(isActive: true);
         }
 
         public override void Hide()
         {
-            SetActive(false);
+            SetActive(isActive: false);
+        }
+
+        private void CreateEntries(IProfileController profile)
+        {
+            var allResources = (ResourceType[])Enum.GetValues(typeof(ResourceType));
+            foreach (var currentResource in allResources)
+            {
+                var count = profile.GetQuantity(currentResource);
+                var instance = Instantiate(_template, transform);
+                instance.Initialize(currentResource, count);
+                _entries.Add(instance);
+            }
         }
 
         private void SetActive(bool isActive)
