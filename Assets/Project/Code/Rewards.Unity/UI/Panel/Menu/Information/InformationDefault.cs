@@ -33,8 +33,8 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
             _lists.Add(_lootBoxList);
             _lists.Add(_resourcesList);
 
-            _pages.Initialize();
             _pages.ToggleActivated += ToggleActivatedEventHandler;
+            _pages.Initialize();
         }
 
         public override void Dispose()

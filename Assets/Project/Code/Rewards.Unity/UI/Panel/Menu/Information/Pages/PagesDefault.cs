@@ -22,7 +22,9 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.Pages
             for (var i = 0; i < _toggles.Count; i++)
             {
                 var index = i;
-                _toggles[i].onValueChanged.AddListener(value => ValueChangedEventHandler(index, value));
+                var currentToggle = _toggles[i];
+                currentToggle.onValueChanged.AddListener(value => ValueChangedEventHandler(index, value));
+                ValueChangedEventHandler(i, currentToggle.isOn);
             }
         }
 
