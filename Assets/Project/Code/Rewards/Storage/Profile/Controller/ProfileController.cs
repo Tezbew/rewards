@@ -71,9 +71,9 @@ namespace Rewards.Storage.Profile.Controller
 
         private List<ItemType> Items => _data.Items;
 
-        private bool TryAdd(ResourceType resource)
+        private void TryAdd(ResourceType resource)
         {
-            return Resources.TryAdd(resource, value: 0);
+            Resources.TryAdd(resource, value: 0);
         }
 
         private void Save()
