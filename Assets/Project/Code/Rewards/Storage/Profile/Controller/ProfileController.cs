@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Rewards.Item;
 using Rewards.Resource;
 using Rewards.Storage.Profile.Data;
@@ -36,11 +35,6 @@ namespace Rewards.Storage.Profile.Controller
 
             var instance = new ProfileData();
             DataLoaded(instance);
-        }
-
-        public IReadOnlyList<ResourceType> GetResources()
-        {
-            return Resources.Keys.ToArray();
         }
 
         public int GetQuantity(ResourceType resource)
