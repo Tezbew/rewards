@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Rewards.LootBox.Version;
 using Rewards.Storage.Profile.Controller;
+using Rewards.Unity.UI.Panel.Menu.Information.ItemsList;
 using Rewards.Unity.UI.Panel.Menu.Information.LootBoxList;
 using Rewards.Unity.UI.Panel.Menu.Information.Pages;
 using Rewards.Unity.UI.Panel.Menu.Information.ResourcesList;
@@ -20,6 +21,9 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
         [SerializeField]
         private ResourcesListBase _resourcesList;
 
+        [SerializeField]
+        private ItemsListBase _itemsList;
+
         private readonly List<IListInformationList> _lists = new();
 
         public override event Action<LootBoxVersion> Selected;
@@ -29,9 +33,11 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
             _lootBoxList.Initialize(lootBoxes);
             _lootBoxList.Selected += BoxSelectedEventHandler;
             _resourcesList.Initialize(profile);
+            _itemsList.Initialize(profile);
 
             _lists.Add(_lootBoxList);
             _lists.Add(_resourcesList);
+            _lists.Add(_itemsList);
 
             _pages.ToggleActivated += ToggleActivatedEventHandler;
             _pages.Initialize();
@@ -44,6 +50,7 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
             _lootBoxList.Selected -= BoxSelectedEventHandler;
             _lootBoxList.Dispose();
             _resourcesList.Dispose();
+            _itemsList.Dispose();
         }
 
         private void BoxSelectedEventHandler(LootBoxVersion box)
