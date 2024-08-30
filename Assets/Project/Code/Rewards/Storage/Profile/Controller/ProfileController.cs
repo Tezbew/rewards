@@ -33,7 +33,7 @@ namespace Rewards.Storage.Profile.Controller
                 return;
             }
 
-            var instance = new ProfileData();
+            var instance = CreateEmptyProfile();
             DataLoaded(instance);
         }
 
@@ -67,9 +67,20 @@ namespace Rewards.Storage.Profile.Controller
             Save();
         }
 
+        public void Clear()
+        {
+            SetData(CreateEmptyProfile());
+            Save();
+        }
+
         private Dictionary<ResourceType, int> Resources => _data.Resources;
 
         private List<ItemType> Items => _data.Items;
+
+        private static ProfileData CreateEmptyProfile()
+        {
+            return new ProfileData();
+        }
 
         private void TryAdd(ResourceType resource)
         {
@@ -83,10 +94,15 @@ namespace Rewards.Storage.Profile.Controller
 
         private void DataLoaded(ProfileData data)
         {
-            _data = data;
+            SetData(data);
             _initializationCallback.Invoke();
             _initializationCallback = null;
             _isInitialized = true;
+        }
+
+        private void SetData(ProfileData data)
+        {
+            _data = data;
         }
 
         private void SaveFinished()

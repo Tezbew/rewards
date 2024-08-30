@@ -11,5 +11,6 @@ namespace Rewards.Storage.Profile.Controller
         void ModifyResource(ResourceType resource, int quantity);
         bool ContainsItem(ItemType item);
         void AddItem(ItemType item);
+        void Clear();
     }
 }
