@@ -8,7 +8,7 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
 {
     public abstract class InformationBase : MonoBehaviour, IDisposable
     {
-        public virtual event Action<LootBoxVersion> Selected;
+        public abstract event Action<LootBoxVersion> Selected;
         public abstract void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes, IProfileController profile);
         public abstract void Dispose();
     }
