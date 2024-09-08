@@ -8,9 +8,9 @@ namespace Rewards.Storage.Profile.Controller
     {
         void Initialize(Action callback);
         int GetQuantity(ResourceType resource);
-        void ModifyResource(ResourceType resource, int quantity);
+        void ModifyResource(ResourceType resource, int quantity, Action callback = null);
         bool ContainsItem(ItemType item);
-        void AddItem(ItemType item);
-        void Clear();
+        void AddItem(ItemType item, Action callback = null);
+        void Clear(Action callback = null);
     }
 }

@@ -11,6 +11,7 @@ namespace Rewards.Storage.Profile.Controller
     {
         private readonly ISaveStrategy _saveStrategy;
         private Action _initializationCallback;
+        private Action _saveCallback;
         private bool _isInitialized;
         private ProfileData _data;
 
@@ -44,11 +45,11 @@ namespace Rewards.Storage.Profile.Controller
             return Resources[resource];
         }
 
-        public void ModifyResource(ResourceType resource, int quantity)
+        public void ModifyResource(ResourceType resource, int quantity, Action callback = null)
         {
             TryAdd(resource);
             Resources[resource] += quantity;
-            Save();
+            Save(callback);
         }
 
         public bool ContainsItem(ItemType item)
@@ -56,7 +57,7 @@ namespace Rewards.Storage.Profile.Controller
             return Items.Contains(item);
         }
 
-        public void AddItem(ItemType item)
+        public void AddItem(ItemType item, Action callback = null)
         {
             if (ContainsItem(item))
             {
@@ -64,13 +65,13 @@ namespace Rewards.Storage.Profile.Controller
             }
 
             Items.Add(item);
-            Save();
+            Save(callback);
         }
 
-        public void Clear()
+        public void Clear(Action callback = null)
         {
             SetData(CreateEmptyProfile());
-            Save();
+            Save(callback);
         }
 
         private Dictionary<ResourceType, int> Resources => _data.Resources;
@@ -87,9 +88,21 @@ namespace Rewards.Storage.Profile.Controller
             Resources.TryAdd(resource, value: 0);
         }
 
-        private void Save()
+        private void Save(Action callBack)
         {
+            if (_saveCallback != null)
+            {
+                throw new InvalidOperationException(message: "Another save operation is in progress!");
+            }
+
+            _saveCallback = callBack;
             _saveStrategy.Save(_data, SaveFinished);
+        }
+
+        private void SaveFinished()
+        {
+            _saveCallback?.Invoke();
+            _saveCallback = null;
         }
 
         private void DataLoaded(ProfileData data)
@@ -103,10 +116,6 @@ namespace Rewards.Storage.Profile.Controller
         private void SetData(ProfileData data)
         {
             _data = data;
-        }
-
-        private void SaveFinished()
-        {
         }
     }
 }
