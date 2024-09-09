@@ -1,11 +1,13 @@
 using Rewards.Container;
 using Rewards.Coroutine;
+using Rewards.LootBox.Factory;
 using Rewards.Storage.Profile.Controller;
 using Rewards.Storage.SaveStrategy;
 using Rewards.Storage.SaveStrategy.FileOperations;
 using Rewards.UI.Management.Opener;
 using Rewards.Unity.Coroutine.Manager;
 using Rewards.Unity.LootBox.Config.SO;
+using Rewards.Unity.LootBox.Factory;
 using Rewards.Unity.SceneEntryPoint;
 using Rewards.Unity.SceneEntryPoint.Provider;
 using Rewards.Unity.SceneLoader;
@@ -64,13 +66,16 @@ namespace Rewards.Unity.Game
             _container.Register(panelOpener);
 
             _container.Register(_lootBoxCollectionConfigSO);
-            
+
+            ILootBoxFactory lootBoxFactory = new LootBoxFactory(_lootBoxCollectionConfigSO);
+            _container.Register(lootBoxFactory);
+
             _profileController.Initialize(ProfileInitialized);
         }
 
         private void ProfileInitialized()
         {
-            Debug.Log("Profile Initialized");
+            Debug.Log(message: "Profile Initialized");
             _sceneLoader.LoadActiveSceneAsync(sceneName: "LootBox", LoadSceneMode.Single, LoadFinishedEventHandler);
         }
 
