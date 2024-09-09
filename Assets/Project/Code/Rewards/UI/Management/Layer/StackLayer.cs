@@ -25,7 +25,9 @@ namespace Rewards.UI.Management.Layer
         {
             while (_stack.Count > 0)
             {
-                _stack.Pop().Dispose();
+                var panel = _stack.Pop();
+                panel.Disposing -= PanelDisposingEventHandler;
+                panel.Dispose();
             }
         }
 
