@@ -34,6 +34,7 @@ namespace Rewards.Unity.UI.Panel
             LogInfo();
             Disposing?.Invoke(this);
             OnDispose();
+            Destroy(gameObject);
         }
 
         public void SetParent(Transform parent)
