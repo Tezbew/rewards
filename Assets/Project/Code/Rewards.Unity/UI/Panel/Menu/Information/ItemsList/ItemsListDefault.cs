@@ -40,6 +40,15 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.ItemsList
             }
         }
 
+        public override void UpdateValues(IProfileController profile)
+        {
+            foreach (var currentEntry in _entries)
+            {
+                var isOwned = profile.ContainsItem(currentEntry.Item);
+                currentEntry.SetOwned(isOwned);
+            }
+        }
+
         private void CreateEntries(IProfileController profile)
         {
             var allItems = (ItemType[])Enum.GetValues(typeof(ItemType));

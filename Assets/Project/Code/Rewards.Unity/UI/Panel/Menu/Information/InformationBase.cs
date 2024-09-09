@@ -11,5 +11,6 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
         public abstract event Action<LootBoxVersion> Selected;
         public abstract void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes, IProfileController profile);
         public abstract void Dispose();
+        public abstract void UpdateValues(IProfileController profile);
     }
 }

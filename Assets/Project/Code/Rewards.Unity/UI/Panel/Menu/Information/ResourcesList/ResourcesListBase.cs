@@ -10,5 +10,6 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.ResourcesList
         public abstract void Show();
         public abstract void Hide();
         public abstract void Dispose();
+        public abstract void UpdateValues(IProfileController profile);
     }
 }

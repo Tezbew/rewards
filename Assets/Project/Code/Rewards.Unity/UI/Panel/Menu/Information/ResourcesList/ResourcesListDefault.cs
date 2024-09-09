@@ -39,6 +39,15 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.ResourcesList
             }
         }
 
+        public override void UpdateValues(IProfileController profile)
+        {
+            foreach (var currentEntry in _entries)
+            {
+                var quantity = profile.GetQuantity(currentEntry.Resource);
+                currentEntry.SetCount(quantity);
+            }
+        }
+
         private void CreateEntries(IProfileController profile)
         {
             var allResources = (ResourceType[])Enum.GetValues(typeof(ResourceType));

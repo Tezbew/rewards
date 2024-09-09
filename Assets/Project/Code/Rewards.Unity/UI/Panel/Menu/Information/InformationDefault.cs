@@ -53,6 +53,12 @@ namespace Rewards.Unity.UI.Panel.Menu.Information
             _itemsList.Dispose();
         }
 
+        public override void UpdateValues(IProfileController profile)
+        {
+            _resourcesList.UpdateValues(profile);
+            _itemsList.UpdateValues(profile);
+        }
+
         private void BoxSelectedEventHandler(LootBoxVersion box)
         {
             Selected?.Invoke(box);

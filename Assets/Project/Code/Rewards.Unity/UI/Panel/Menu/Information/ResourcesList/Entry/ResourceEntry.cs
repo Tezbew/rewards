@@ -12,9 +12,26 @@ namespace Rewards.Unity.UI.Panel.Menu.Information.ResourcesList.Entry
         [SerializeField]
         private TMP_Text _countField;
 
+        private ResourceType _resource;
+
+        public override ResourceType Resource
+        {
+            get => _resource;
+            protected set
+            {
+                _resource = value;
+                _nameField.text = _resource.ToString();
+            }
+        }
+
         public override void Initialize(ResourceType resource, int count)
         {
-            _nameField.text = resource.ToString();
+            Resource = resource;
+            SetCount(count);
+        }
+
+        public override void SetCount(int count)
+        {
             _countField.text = count.ToString();
         }
     }
