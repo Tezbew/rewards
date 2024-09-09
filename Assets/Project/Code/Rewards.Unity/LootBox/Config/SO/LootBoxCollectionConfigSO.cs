@@ -20,6 +20,21 @@ namespace Rewards.Unity.LootBox.Config.SO
 
         public LootBoxConfig[] Boxes => _boxes;
 
+        public LootBoxConfig FindConfig(LootBoxVersion version)
+        {
+            foreach (var current in _boxes)
+            {
+                if (current.Version != version)
+                {
+                    continue;
+                }
+
+                return current;
+            }
+
+            throw new ElementNotFountException($"Can't find config for {version}");
+        }
+
         public LootBoxViewBase FindView(LootBoxVersion version)
         {
             foreach (var currentView in _views)
