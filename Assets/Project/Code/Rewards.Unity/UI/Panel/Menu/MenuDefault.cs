@@ -16,12 +16,16 @@ namespace Rewards.Unity.UI.Panel.Menu
         [SerializeField]
         private InformationBase _information;
 
+        private IProfileController _profile;
+
         public override event Action<LootBoxVersion> Selected;
 
         public override void Initialize(IReadOnlyList<LootBoxVersion> lootBoxes, IProfileController profile)
         {
             LogInfo();
-            _information.Initialize(lootBoxes, profile);
+            _profile = profile;
+            
+            _information.Initialize(lootBoxes, _profile);
             _information.Selected += BoxSelectedEventHandler;
 
             _clearSavesButton.onClick.AddListener(ClearSaves);
@@ -50,6 +54,13 @@ namespace Rewards.Unity.UI.Panel.Menu
         private void ClearSaves()
         {
             LogInfo();
+            _profile.Clear(ClearedEventHandler);
+        }
+
+        private void ClearedEventHandler()
+        {
+            LogInfo();
+            _information.UpdateValues(_profile);
         }
     }
 }
