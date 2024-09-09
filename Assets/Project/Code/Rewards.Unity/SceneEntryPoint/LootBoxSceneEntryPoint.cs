@@ -41,6 +41,8 @@ namespace Rewards.Unity.SceneEntryPoint
         {
             LogInfo($"Box selected {box.ToString()}");
             _lootBoxFactory.Create(box);
+            _menu.Dispose();
+            _menu = null;
         }
 
         private void LogInfo(string message)
